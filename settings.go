@@ -28,9 +28,9 @@ type AppSettings struct {
 	verbose   bool
 	debug     bool
 	stats     bool
-	exitAfter time.Duration
+	ExitAfter time.Duration
 
-	pprof string
+	PProf string
 
 	splitOutput bool
 
@@ -88,11 +88,11 @@ func usage() {
 func init() {
 	flag.Usage = usage
 
-	flag.StringVar(&Settings.pprof, "http-pprof", "", "Enable profiling. Starts  http server on specified port, exposing special /debug/pprof endpoint. Example: `:8181`")
+	flag.StringVar(&Settings.PProf, "http-PProf", "", "Enable profiling. Starts  http server on specified port, exposing special /debug/PProf endpoint. Example: `:8181`")
 	flag.BoolVar(&Settings.verbose, "verbose", false, "Turn on more verbose output")
 	flag.BoolVar(&Settings.debug, "debug", false, "Turn on debug output, shows all intercepted traffic. Works only when with `verbose` flag")
 	flag.BoolVar(&Settings.stats, "stats", false, "Turn on queue stats output")
-	flag.DurationVar(&Settings.exitAfter, "exit-after", 0, "exit after specified duration")
+	flag.DurationVar(&Settings.ExitAfter, "exit-after", 0, "exit after specified duration")
 
 	flag.BoolVar(&Settings.splitOutput, "split-output", false, "By default each output gets same traffic. If set to `true` it splits traffic equally among all outputs.")
 

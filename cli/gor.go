@@ -5,7 +5,6 @@ package goreplay
 import (
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"net/http/httputil"
@@ -35,17 +34,7 @@ func loggingMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-var closeCh chan int
-
 func main() {
-	closeCh = make(chan int)
-	// // Don't exit on panic
-	// defer func() {
-	// 	if r := recover(); r != nil {
-	// 		fmt.Printf("PANIC: pkg: %v %s \n", r, debug.Stack())
-	// 	}
-	// }()
-
 	// If not set via env cariable
 	if len(os.Getenv("GOMAXPROCS")) == 0 {
 		runtime.GOMAXPROCS(runtime.NumCPU() * 2)
@@ -80,9 +69,9 @@ func main() {
 		profileCPU(*cpuprofile)
 	}
 
-	if goreplay.Settings.pprof != "" {
+	if goreplay.Settings.PProf != "" {
 		go func() {
-			log.Println(http.ListenAndServe(goreplay.Settings.pprof, nil))
+			log.Println(http.ListenAndServe(goreplay.Settings.PProf, nil))
 		}()
 	}
 
@@ -90,29 +79,23 @@ func main() {
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		<-c
-		finalize()
+		goreplay.Finalize()
 		os.Exit(1)
 	}()
 
-	if goreplay.Settings.exitAfter > 0 {
-		log.Println("Running gor for a duration of", Settings.exitAfter)
+	if goreplay.Settings.ExitAfter > 0 {
+		log.Println("Running gor for a duration of", goreplay.Settings.ExitAfter)
 
-		time.AfterFunc(Settings.exitAfter, func() {
-			log.Println("Stopping gor after", Settings.exitAfter)
-			close(closeCh)
+		time.AfterFunc(goreplay.Settings.ExitAfter, func() {
+			log.Println("Stopping gor after", goreplay.Settings.ExitAfter)
+			close(goreplay.CloseCh)
 		})
 	}
 
-	goreplay.Start(closeCh)
+	goreplay.Start(goreplay.CloseCh)
 }
 
-func finalize() {
-	for _, p := range goreplay.Plugins.All {
-		if cp, ok := p.(io.Closer); ok {
-			cp.Close()
-		}
-	}
-}
+
 
 func profileCPU(cpuprofile string) {
 	if cpuprofile != "" {
