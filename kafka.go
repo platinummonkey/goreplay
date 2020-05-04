@@ -19,6 +19,14 @@ type KafkaConfig struct {
 	useJSON  bool
 }
 
+func NewKafkaConfig(hosts string, topic string, useJSON bool) *KafkaConfig {
+	return &KafkaConfig{
+		host: hosts,
+		topic: topic,
+		useJSON: useJSON,
+	}
+}
+
 // KafkaMessage should contains catched request information that should be
 // passed as Json to Apache Kafka.
 type KafkaMessage struct {
