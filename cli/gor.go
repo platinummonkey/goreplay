@@ -1,6 +1,6 @@
 // Gor is simple http traffic replication tool written in Go. Its main goal to replay traffic from production servers to staging and dev environments.
 // Now you can test your code on real user sessions in an automated and repeatable fashion.
-package main
+package goreplay
 
 import (
 	"flag"

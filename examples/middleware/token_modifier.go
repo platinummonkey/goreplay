@@ -17,7 +17,7 @@ How middleware works:
       +------------------STDIN----------------->----+
 */
 
-package main
+package goreplay
 
 import (
 	"bufio"
