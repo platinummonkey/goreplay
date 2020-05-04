@@ -15,7 +15,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/buger/goreplay/proto"
+	"github.com/platinummonkey/goreplay/proto"
 )
 
 func TestHTTPClientURLPort(t *testing.T) {

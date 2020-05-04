@@ -5,8 +5,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/buger/goreplay/proto"
-	raw "github.com/buger/goreplay/raw_socket_listener"
+	"github.com/platinummonkey/goreplay/proto"
+	raw "github.com/platinummonkey/goreplay/raw_socket_listener"
 )
 
 // RAWInput used for intercepting traffic for given address

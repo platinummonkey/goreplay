@@ -1,6 +1,6 @@
-module github.com/buger/goreplay
+module github.com/platinummonkey/goreplay
 
-go 1.12
+go 1.14
 
 require (
 	github.com/Shopify/sarama v1.11.0

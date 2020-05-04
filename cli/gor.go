@@ -17,6 +17,8 @@ import (
 	"runtime/pprof"
 	"syscall"
 	"time"
+
+	"github.com/platinummonkey/goreplay"
 )
 
 var (
@@ -61,12 +63,12 @@ func main() {
 		log.Fatal(http.ListenAndServe(args[1], loggingMiddleware(http.FileServer(http.Dir(dir)))))
 	} else {
 		flag.Parse()
-		InitPlugins()
+		goreplay.InitPlugins()
 	}
 
-	fmt.Println("Version:", VERSION)
+	fmt.Println("Version:", goreplay.VERSION)
 
-	if len(Plugins.Inputs) == 0 || len(Plugins.Outputs) == 0 {
+	if len(goreplay.Plugins.Inputs) == 0 || len(goreplay.Plugins.Outputs) == 0 {
 		log.Fatal("Required at least 1 input and 1 output")
 	}
 
@@ -78,9 +80,9 @@ func main() {
 		profileCPU(*cpuprofile)
 	}
 
-	if Settings.pprof != "" {
+	if goreplay.Settings.pprof != "" {
 		go func() {
-			log.Println(http.ListenAndServe(Settings.pprof, nil))
+			log.Println(http.ListenAndServe(goreplay.Settings.pprof, nil))
 		}()
 	}
 
@@ -92,7 +94,7 @@ func main() {
 		os.Exit(1)
 	}()
 
-	if Settings.exitAfter > 0 {
+	if goreplay.Settings.exitAfter > 0 {
 		log.Println("Running gor for a duration of", Settings.exitAfter)
 
 		time.AfterFunc(Settings.exitAfter, func() {
@@ -101,11 +103,11 @@ func main() {
 		})
 	}
 
-	Start(closeCh)
+	goreplay.Start(closeCh)
 }
 
 func finalize() {
-	for _, p := range Plugins.All {
+	for _, p := range goreplay.Plugins.All {
 		if cp, ok := p.(io.Closer); ok {
 			cp.Close()
 		}

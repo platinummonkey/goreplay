@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/buger/goreplay/proto"
+	"github.com/platinummonkey/goreplay/proto"
 )
 
 var _ = log.Println

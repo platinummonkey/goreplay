@@ -9,7 +9,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/buger/goreplay/proto"
+	"github.com/platinummonkey/goreplay/proto"
 )
 
 func TestHTTPInput(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/buger/goreplay/proto"
+	"github.com/platinummonkey/goreplay/proto"
 
 	"github.com/Shopify/sarama"
 	"github.com/Shopify/sarama/mocks"

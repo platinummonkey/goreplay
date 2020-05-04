@@ -6,7 +6,7 @@ import (
 	"hash/fnv"
 	"strings"
 
-	"github.com/buger/goreplay/proto"
+	"github.com/platinummonkey/goreplay/proto"
 )
 
 type HTTPModifier struct {

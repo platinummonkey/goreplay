@@ -26,7 +26,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/buger/goreplay/proto"
+	"github.com/platinummonkey/goreplay/proto"
 )
 
 // requestID -> originalToken
