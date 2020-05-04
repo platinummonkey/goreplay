@@ -226,8 +226,8 @@ func (i *FileInput) emit() {
 	// For now having fixed timeout is temporary solution
 	// Further should be modified, so outputs can report if their queue empty or not
 	time.Sleep(time.Second)
-	if closeCh != nil {
-		close(closeCh)
+	if CloseCh != nil {
+		close(CloseCh)
 	}
 }
 
